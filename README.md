@@ -1,5 +1,10 @@
 # Illustrated Diary — an AI companion whose memory you can see
 
+<p align="center">
+  <b><a href="https://www.loveaiyou.xyz">www.loveaiyou.xyz</a></b> ·
+  QQ group 爱token: <b>1097902100</b> ·
+  <a href="https://1dddd1113sc.github.io/illustrated-diary/">Landing page</a>
+</p>
 > **Every AI companion promises to remember you. We are the only one that can prove it.**
 
 Other companions keep your story as a line of chat text. We turn every day you write into a set of illustrations — same art style, same protagonist, forever. Scroll back three months and the picture is still there, the person in it has not changed. That is what being remembered actually feels like.

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爱日记 — 记忆看得见的 AI 伴侣日记</title>
+<meta name="description" content="每个 AI 伴侣都说会记住你，只有我们能证明。你的每一篇日记被画成画册——画风统一、主角永远是你，第 1 天和第 100 天都在。">
+<meta property="og:title" content="爱日记 Illustrated Diary">
+<meta property="og:description" content="记忆看得见的 AI 伴侣日记">
+<meta property="og:image" content="assets/home-one-card.png">
+<style>
+  :root {
+    --ink: #2b2622;
+    --paper: #faf7f2;
+    --paper-2: #f1ece3;
+    --accent: #c26a4a;
+    --muted: #8a8178;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: Georgia, 'Songti SC', 'Noto Serif SC', serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    padding: 88px 0 64px;
+    text-align: center;
+    background: linear-gradient(var(--paper), var(--paper-2));
+  }
+  header .kicker {
+    font-size: 13px; letter-spacing: .3em; color: var(--accent); margin-bottom: 20px;
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+  }
+  header h1 { font-size: clamp(30px, 5.5vw, 50px); line-height: 1.3; font-weight: 700; }
+  header h1 em { font-style: normal; color: var(--accent); }
+  header p.sub {
+    max-width: 580px; margin: 24px auto 0; font-size: 17px; color: var(--muted);
+  }
+  .cta-row { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 30px; border-radius: 999px;
+    text-decoration: none; font-size: 15px;
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+  }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-ghost { border: 1px solid var(--muted); color: var(--ink); }
+
+  .hero-shot { margin-top: 56px; }
+  .hero-shot img { width: 100%; max-width: 420px; border-radius: 24px; border: 1px solid var(--paper-2); box-shadow: 0 24px 60px rgba(43,38,34,.12); }
+
+  section { padding: 72px 0; border-top: 1px solid var(--paper-2); }
+  h2 { font-size: clamp(24px, 4vw, 34px); line-height: 1.3; margin-bottom: 16px; }
+  h2 .num { color: var(--accent); font-size: .6em; vertical-align: super; margin-right: 6px; }
+  section p { font-size: 17px; max-width: 640px; }
+  section p + p { margin-top: 14px; }
+
+  table.compare { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 15px; }
+  table.compare th, table.compare td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--paper-2); }
+  table.compare th { font-family: -apple-system, 'PingFang SC', sans-serif; font-size: 13px; color: var(--muted); }
+  table.compare td:last-child { color: var(--accent); font-weight: 700; }
+
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 36px; }
+  .shots figure { background: #fff; border: 1px solid var(--paper-2); border-radius: 18px; overflow: hidden; }
+  .shots img { width: 100%; display: block; }
+  .shots figcaption {
+    padding: 12px 16px; font-size: 13px; color: var(--muted);
+    font-family: -apple-system, 'PingFang SC', sans-serif;
+  }
+
+  .numbers { display: flex; gap: 48px; flex-wrap: wrap; margin-top: 28px; }
+  .numbers .n b { display: block; font-size: 40px; color: var(--accent); }
+  .numbers .n span { font-size: 14px; color: var(--muted); font-family: -apple-system, 'PingFang SC', sans-serif; }
+
+  .qq-card {
+    margin-top: 32px; display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
+    background: #fff; border: 1px solid var(--paper-2); border-radius: 20px; padding: 28px;
+  }
+  .qq-card img { width: 180px; border-radius: 12px; }
+  .qq-card .qq-info { font-family: -apple-system, 'PingFang SC', sans-serif; }
+  .qq-card .qq-info b { font-size: 20px; display: block; margin-bottom: 6px; }
+  .qq-card .qq-info span { color: var(--muted); font-size: 14px; display: block; }
+  .qq-card .qq-info .qnum { font-size: 26px; color: var(--accent); font-weight: 700; margin-top: 8px; letter-spacing: .05em; }
+
+  footer { padding: 56px 0 80px; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--paper-2); font-family: -apple-system, 'PingFang SC', sans-serif; }
+  footer a { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">爱日记 ILLUSTRATED DIARY</div>
+    <h1>每个 AI 伴侣都说会记住你。<br><em>只有我们能证明。</em></h1>
+    <p class="sub">你的每一篇日记，被画成一本画册：画风统一、主角永远是你。翻到三个月前，画还在、人没变——这才叫被记住。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://www.loveaiyou.xyz">进入爱日记</a>
+      <a class="btn btn-ghost" href="#join">加 QQ 群内测</a>
+    </div>
+    <div class="hero-shot"><img src="assets/home-one-card.png" alt="爱日记首页"></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">01</span>记忆要有重量</h2>
+    <p>AI 伴侣最大的毛病不是遗忘，是它的记忆没有重量。聊天记录里躺着一句"我记得你"，翻过去就没了。但一个被画出来的日子，你会停下来看。</p>
+    <table class="compare">
+      <tr><th>别人家的"记忆"</th><th>这里的记忆</th></tr>
+      <tr><td>聊天记录里的一行字</td><td>画册里一页摸得着的画</td></tr>
+      <tr><td>"我记得你"（嘴上说的）</td><td>第 1 天和第 100 天同一个你（眼睛看到的）</td></tr>
+      <tr><td>划过去就忘的文字</td><td>会停下来看的画面</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>一篇日记，4–8 个分镜</h2>
+    <p>市面上的 AI 日记最多把整篇配一张装饰图。我们先把日记拆成一个个具体时刻——每个场景有自己的构图、光线和情绪，像你这一天的电影分镜。</p>
+    <p>而且主角永远不变：用你的照片生成角色锚图，第 1 天的"你"和第 100 天的"你"是同一个人、同一种画风。这个跨天一致性，是所有同类产品都没解决的问题，也是我们的核心壁垒。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>产品截图</h2>
+    <div class="shots">
+      <figure><img src="assets/write-page-spacious.png" alt="写日记"><figcaption>写 —— 一张安静的纸，别的都没有</figcaption></figure>
+      <figure><img src="assets/home-today-card-v2.png" alt="今天的卡"><figcaption>今天 —— 你的日记，等它变成画</figcaption></figure>
+      <figure><img src="assets/home-refined-final.png" alt="首页"><figcaption>首页 —— 你正在积累的画册</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">04</span>说数字，不说形容词</h2>
+    <div class="numbers">
+      <div class="n"><b>4–8</b><span>每篇日记的场景数</span></div>
+      <div class="n"><b>~90 秒</b><span>从文字到全套插画</span></div>
+      <div class="n"><b>0</b><span>你看到的废片（自动检测重出）</span></div>
+    </div>
+    <p style="margin-top:28px">生图约有 10% 的废片率，但每一张都会过自动一致性校验，不合格的悄悄重画——你按一下按钮，拿到的永远是全套。</p>
+  </div>
+</section>
+
+<section id="join">
+  <div class="wrap">
+    <h2><span class="num">05</span>进来一起玩</h2>
+    <p>产品在内测期。QQ 群「爱 token」是我们的据点：新功能先在这里放，bug 在这里骂，你的画册截图也可以晒在这里。</p>
+    <div class="qq-card">
+      <img src="assets/qq-group.jpg" alt="QQ 群二维码">
+      <div class="qq-info">
+        <b>QQ 群：爱 token</b>
+        <span>扫码或搜群号加入</span>
+        <div class="qnum">1097902100</div>
+      </div>
+    </div>
+    <p style="margin-top:28px">想看我们怎么做出来的？技术拆解、市场分析和路线图都在 GitHub 上公开（代码不开源，决策全透明）：</p>
+    <div class="cta-row" style="justify-content:flex-start">
+      <a class="btn btn-primary" href="https://github.com/1dddd1113sc/illustrated-diary">GitHub 仓库</a>
+      <a class="btn btn-ghost" href="https://github.com/1dddd1113sc/illustrated-diary/blob/main/ROADMAP.md">公开路线图</a>
+      <a class="btn btn-ghost" href="https://github.com/1dddd1113sc/illustrated-diary/blob/main/docs/market.md">市场分析</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    爱日记 Illustrated Diary ·
+    <a href="https://www.loveaiyou.xyz">www.loveaiyou.xyz</a> ·
+    <a href="https://github.com/1dddd1113sc/illustrated-diary">GitHub</a> ·
+    保留所有权利
+  </div>
+</footer>
+
+</body>
+</html>
