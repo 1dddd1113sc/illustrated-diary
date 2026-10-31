@@ -71,9 +71,10 @@ AI 伴侣最大的毛病不是遗忘，是它的记忆没有重量。聊天记�
 
 | 写 | 今天 | 首页 |
 |---|---|---|
-| ![写日记](assets/write-page-spacious.png) | ![今天的卡](assets/home-today-card-v2.png) | ![首页](assets/home-one-card.png) |
+| _截图待更新_ | _截图待更新_ | _截图待更新_ |
 
-> TODO：首屏动图（日记文字滚过 → 插画逐张亮起 → 时间轴滑动），放到 `assets/hero.gif` 即生效。
+> 界面正在改版，旧截图已移除，新界面截图到位后填回 `assets/`：
+> `write.png` · `today.png` · `home.png` · 首屏动图 `hero.gif`
 
 ## 为什么是现在
 

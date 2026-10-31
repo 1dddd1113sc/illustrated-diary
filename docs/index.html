@@ -7,7 +7,7 @@
 <meta name="description" content="每个 AI 伴侣都说会记住你，只有我们能证明。你的每一篇日记被画成画册——画风统一、主角永远是你，第 1 天和第 100 天都在。">
 <meta property="og:title" content="爱日记 Illustrated Diary">
 <meta property="og:description" content="记忆看得见的 AI 伴侣日记">
-<meta property="og:image" content="assets/home-one-card.png">
+<meta property="og:image" content="assets/og-cover.png">
 <style>
   :root {
     --ink: #2b2622;
@@ -51,6 +51,19 @@
 
   .hero-shot { margin-top: 56px; }
   .hero-shot img { width: 100%; max-width: 420px; border-radius: 24px; border: 1px solid var(--paper-2); box-shadow: 0 24px 60px rgba(43,38,34,.12); }
+  .placeholder-box {
+    max-width: 420px; margin: 0 auto; aspect-ratio: 390/560;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px dashed var(--muted); border-radius: 24px;
+    color: var(--muted); font-size: 14px; padding: 24px; text-align: center;
+    font-family: -apple-system, "PingFang SC", sans-serif;
+  }
+  .ph {
+    aspect-ratio: 390/560; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 13px; text-align: center; padding: 16px;
+    font-family: -apple-system, "PingFang SC", sans-serif;
+    background: repeating-linear-gradient(45deg, #faf8f4, #faf8f4 10px, #f4f0e9 10px, #f4f0e9 20px);
+  }
 
   section { padding: 72px 0; border-top: 1px solid var(--paper-2); }
   h2 { font-size: clamp(24px, 4vw, 34px); line-height: 1.3; margin-bottom: 16px; }
@@ -100,7 +113,7 @@
       <a class="btn btn-primary" href="https://www.loveaiyou.xyz">进入爱日记</a>
       <a class="btn btn-ghost" href="#join">加 QQ 群内测</a>
     </div>
-    <div class="hero-shot"><img src="assets/home-one-card.png" alt="爱日记首页"></div>
+    <div class="hero-shot placeholder-box">首屏主图占位 · 待放入新界面截图（assets/hero.png）</div>
   </div>
 </header>
 
@@ -150,9 +163,9 @@
   <div class="wrap">
     <h2><span class="num">05</span>产品截图</h2>
     <div class="shots">
-      <figure><img src="assets/write-page-spacious.png" alt="写日记"><figcaption>写 —— 一张安静的纸，别的都没有</figcaption></figure>
-      <figure><img src="assets/home-today-card-v2.png" alt="今天的卡"><figcaption>今天 —— 你的日记，等它变成画</figcaption></figure>
-      <figure><img src="assets/home-refined-final.png" alt="首页"><figcaption>首页 —— 你正在积累的画册</figcaption></figure>
+      <figure><div class="ph">写日记页截图占位</div><figcaption>写 —— 一张安静的纸，别的都没有</figcaption></figure>
+      <figure><div class="ph">今天卡片截图占位</div><figcaption>今天 —— 你的日记，等它变成画</figcaption></figure>
+      <figure><div class="ph">首页截图占位</div><figcaption>首页 —— 你正在积累的画册</figcaption></figure>
     </div>
   </div>
 </section>
