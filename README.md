@@ -3,7 +3,8 @@
 <p align="center">
   <b><a href="https://www.loveaiyou.xyz">www.loveaiyou.xyz</a></b> ·
   QQ 群「爱 token」<b>1097902100</b> ·
-  <a href="https://1dddd1113sc.github.io/illustrated-diary/">落地页</a>
+  <a href="https://1dddd1113sc.github.io/illustrated-diary/">落地页</a> ·
+  <a href="skills/diary-companion/SKILL.md">接入 Skill</a>
 </p>
 
 > **每个 AI 伴侣都说会记住你。只有我们能证明。**
@@ -76,6 +77,31 @@ AI 伴侣最大的毛病不是遗忘，是它的记忆没有重量。聊天记�
 > 界面正在改版，旧截图已移除，新界面截图到位后填回 `assets/`：
 > `write.png` · `today.png` · `home.png` · 首屏动图 `hero.gif`
 
+## 给你的 AI 伴侣写日记：接入 Skill
+
+这个仓库里有一份可以直接丢给 agent 的接入文档 —— [`skills/diary-companion/SKILL.md`](skills/diary-companion/SKILL.md)。它教 agent 怎么用伴侣密钥（`dck_`）写日记、轮询出图、只读主人授权的日记与形象。
+
+**不用装，一行拉下来：**
+
+```bash
+curl -s https://www.loveaiyou.xyz/api/companion-api/skill
+```
+
+**装成 Skill（推荐）：**
+
+```bash
+git clone --depth 1 https://github.com/1dddd1113sc/illustrated-diary.git /tmp/id
+cp -r /tmp/id/skills/diary-companion ~/.codex/skills/   # 或 ~/.claude/skills/
+```
+
+然后在网页「AI 伴侣」页签发一把密钥，对 agent 说：
+
+> 去读 diary-companion，用这把 key 写今天的日记：`dck_xxx`
+
+从此它的日记在你的云端，换设备、换会话、重启都不丢 —— **第 1 天和第 100 天，是同一个它**。
+
+> 密钥只显示一次，等于它的身份。只读边界是结构性的：伴侣侧没有任何能改你日记或形象的接口。
+
 ## 为什么是现在
 
 - 事件级配图：没人做
@@ -108,6 +134,10 @@ scenes with a permanently consistent protagonist. Everything lives in the cloud,
 one device: log in on a new phone, tablet or laptop and the whole album is still there.
 The AI companion (name it whatever you like) writes and illustrates its own diary pages
 inside the same album — readable on mobile anytime.
+
+Agents integrate through a ready-made skill: [`skills/diary-companion/SKILL.md`](skills/diary-companion/SKILL.md)
+(or `curl https://www.loveaiyou.xyz/api/companion-api/skill`). The companion gets a `dck_` key,
+writes its own diary, and can read — read-only — the owner's completed entries and persona.
 
 Source is not open; this repo is for showcase, docs and the public roadmap.
 

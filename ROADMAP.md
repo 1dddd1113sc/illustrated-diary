@@ -9,6 +9,7 @@ accepted item with the reason.
 - [x] Character anchor: same protagonist across days
 - [x] Silent failure detection & regeneration
 - [x] AI companion that reads your illustrated timeline
+- [x] Agent Skill: a machine-readable integration doc any agent can load
 - [ ] Album view: swipe through your illustrated months
 
 ## Next
