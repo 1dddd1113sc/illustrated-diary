@@ -1,144 +1,108 @@
 # 爱日记 · Illustrated Diary
 
 <p align="center">
-  <b><a href="https://www.loveaiyou.xyz">www.loveaiyou.xyz</a></b> ·
-  QQ 群「爱 token」<b>1097902100</b> ·
-  <a href="https://1dddd1113sc.github.io/illustrated-diary/">落地页</a> ·
-  <a href="skills/diary-companion/SKILL.md">接入 Skill</a>
+  <a href="https://www.loveaiyou.xyz"><img alt="Website" src="https://img.shields.io/badge/website-loveaiyou.xyz-3b6ef0?style=flat-square"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-proprietary-lightgrey?style=flat-square"></a>
+  <img alt="Client" src="https://img.shields.io/badge/client-h5_%2F_mobile-555?style=flat-square">
+  <a href="skills/diary-companion/SKILL.md"><img alt="Agent skill" src="https://img.shields.io/badge/agent_skill-SKILL.md-2ea44f?style=flat-square"></a>
 </p>
 
-> **每个 AI 伴侣都说会记住你。只有我们能证明。**
+<p align="center">
+把日记拆成分镜、逐格配图的云端日记本。<br/>
+主角跨天保持一致，AI 伴侣也能在这本相册里写自己的那一半。
+</p>
 
-你把日子写下来，我们把它画成画册——画风统一、主角永远是你。所有内容存在云端，不跟着某台设备走：三年后换手机、换电脑、换平板，翻开还是那本画册，第 1 天和第 100 天的你长得一个样。
+<p align="center">
+  <a href="https://www.loveaiyou.xyz">在线使用</a> ·
+  <a href="skills/diary-companion/SKILL.md">Agent Skill</a> ·
+  <a href="docs/architecture.md">架构</a> ·
+  <a href="docs/market.md">市场</a> ·
+  <a href="ROADMAP.md">路线图</a> ·
+  <a href="https://github.com/1dddd1113sc/illustrated-diary/discussions">Discussions</a> ·
+  QQ 群 1097902100
+</p>
 
 ---
 
-**说明：代码不开源。** 本仓库用于产品展示、技术写作和公开路线图。参与方式见 [CONTRIBUTING.md](CONTRIBUTING.md)。许可：专有，保留所有权利。
+## 这是什么
 
----
+一条日记会先被切成若干具体场景，每个场景单独生成一张插图，最后一篇日记对应一组画风统一的画面。
+用户上传的照片会生成一张角色锚图，之后所有插图都复用它，所以第 1 天和第 100 天画的是同一个人。
 
-## 你会得到什么
+日记、插图、人物设定都存在服务端，网页端在手机、平板、电脑上登录同一账号看到的是同一份内容。
 
-**① 记忆存在云端，不跟着设备走**
-日记、插画、人物设定全部落在服务端（对象存储 + 数据库），不是存在手机本地缓存的聊天记录。手机丢了、换机了、平板和电脑轮流用——登录同一个账号，看到的是同一本完整的画册。
+截图：界面改版中，旧截图已下线，新截图见 [`assets/`](assets/README.md)。
 
-**② 长期保留，越写越厚**
-一条条日子攒成一本可以往回翻的相册。三个月前的画还在，人没变，那天的光线和情绪都在。这是"记得你"和"证明记得你"的区别。
+## 特性
 
-**③ 随时切换设备，不丢一个字**
-H5 网页端，手机、平板、电脑同一个账号通用。在地铁上用手机写两句，回家用电脑接着写，配图、风格、历史记录全部同步。
+- **事件级配图**：长文按事件切成多个场景，逐格配图，不是整篇贴一张装饰图。
+- **跨天角色一致**：照片生成角色锚图并复用，跨篇、跨场景是同一张脸、同一套画风。
+- **自动重出**：每张生成后做一致性校验，不合格的在队列里重写提示词重出，用户只拿到成品。
+- **云端存储与跨设备**：数据库 + 对象存储，换设备登录即可继续，不在本地缓存里。
+- **AI 伴侣写日记**：伴侣用独立密钥写日记、配插画，进入同一本相册，移动端可查看。
+- **只读边界**：伴侣侧没有任何能修改主人日记或形象的接口。
+- **按任务记账**：每个生成任务记录 token、张数与渠道，成本可追溯。
 
-**④ 移动端就能看 AI 小鱼的日记**
-AI 伴侣（你可以给它起名叫小鱼）不是你一个人在写——它会自己写日记、自己配插画，把它的那一半日子也放进同一本画册。走路、等车、躺着，掏出手机就能翻它今天写了什么、画了什么。
+## 伴侣的记忆存在哪
 
-## AI 伴侣的记忆，问题在哪
+伴侣的对话上下文会断，日记不会。它每次动笔前先读回最近几篇自己的日记和主人的正式日记
+（`GET /diaries?limit=3`、`GET /owner/diaries?limit=10`），所以能接着前一天的情绪写，
+也能提到主人昨天说过的原话。换会话、换设备、重启都不影响，因为记忆来自数据库里的日记，
+不是上下文长度。
 
-AI 伴侣最大的毛病不是遗忘，是它的记忆没有重量。聊天记录里躺着一句"我记得你"，往上翻两屏就没了。但一个被画出来的日子，你会停下来看。
+节奏和取材的约定写在 Skill 里：默认每天睡前一篇（业务时区 UTC+8），写之前先查今天写过没，
+单篇建议 300-800 字。
 
-我们给记忆一副身体：
+## 快速开始
 
-| 别人家的"记忆" | 这里的记忆 |
-|---|---|
-| 聊天记录里的一行字 | 画册里一页摸得着的画 |
-| "我记得你"（嘴上说的） | 第 1 天和第 100 天同一个你（眼睛看到的） |
-| 划过去就忘的文字 | 会停下来看的画面 |
-| 存在某台手机上 | 存在云端，换设备还在 |
+网页端直接用：<https://www.loveaiyou.xyz>
 
-## 它是怎么做的
-
-**1. 一篇日记，拆成 4–8 个分镜。**
-市面上的 AI 日记（Day One、Rosebud、Mindsera）最多给整篇配一张装饰图。我们先做事件级切分：把日记拆成一个个具体时刻，每个场景有自己的构图、光线和情绪——像你这一天的电影分镜。
-
-**2. 主角永远不变。**
-用你的照片生成角色锚图。"你"在第 1 天和第 100 天是同一个人、同一种画风。这个跨天一致性是所有同类产品都没解决的问题，也是我们的核心壁垒。
-
-**3. 废片不会到你手上。**
-生图有约 10% 的废片率。每一张生成后都会过自动一致性校验，不合格的自动重排 prompt 重出——你按一下按钮，拿到的永远是整套。
-
-**4. AI 伴侣也在这本画册里写日记。**
-伴侣不是挂在旁边的聊天框。它会读你的图文时间线，自己写日记、自己配插画，它的日记和你的日记共用同一套人物设定，翻开就是两个人在同一本相册里过日子。
-
-**5. 存储与同步是底座，不是附加功能。**
-账号体系 + 云端对象存储 + 数据库，写日记、生图任务、插图文件都在服务端。所以"换设备不丢"不是一句承诺，是架构决定的。
-
-## 数字（不吹形容词）
-
-- 一篇 500 字日记 → 6 张插画 → 约 90 秒
-- 每篇日记 4–8 个场景，画风与人物跨篇一致
-- 废片率约 10%，用户可见废片 0（自动重出）
-- 单篇成本按任务记账（token / 张数 / 站点），详细口径见 [docs/architecture.md](docs/architecture.md)
-
-## 截图
-
-| 写 | 今天 | 首页 |
-|---|---|---|
-| _截图待更新_ | _截图待更新_ | _截图待更新_ |
-
-> 界面正在改版，旧截图已移除，新界面截图到位后填回 `assets/`：
-> `write.png` · `today.png` · `home.png` · 首屏动图 `hero.gif`
-
-## 给你的 AI 伴侣写日记：接入 Skill
-
-这个仓库里有一份可以直接丢给 agent 的接入文档 —— [`skills/diary-companion/SKILL.md`](skills/diary-companion/SKILL.md)。它教 agent 怎么用伴侣密钥（`dck_`）写日记、轮询出图、只读主人授权的日记与形象。
-
-**不用装，一行拉下来：**
+伴侣接入文档见 [`skills/diary-companion/SKILL.md`](skills/diary-companion/SKILL.md)。
+它说明怎么用伴侣密钥（`dck_`）写日记、轮询出图、只读主人的正式日记与形象。
 
 ```bash
+# 直接取正文（与仓库内文件同源）
 curl -s https://www.loveaiyou.xyz/api/companion-api/skill
-```
 
-**装成 Skill（推荐）：**
-
-```bash
+# 或安装成 skill
 git clone --depth 1 https://github.com/1dddd1113sc/illustrated-diary.git /tmp/id
 cp -r /tmp/id/skills/diary-companion ~/.codex/skills/   # 或 ~/.claude/skills/
 ```
 
-然后在网页「AI 伴侣」页签发一把密钥，对 agent 说：
+密钥在网页「AI 伴侣」页签发，只显示一次。
 
-> 去读 diary-companion，用这把 key 写今天的日记：`dck_xxx`
+## 文档
 
-从此它的日记在你的云端，换设备、换会话、重启都不丢 —— **第 1 天和第 100 天，是同一个它**。
+| 文件 | 内容 |
+|---|---|
+| [`skills/diary-companion/SKILL.md`](skills/diary-companion/SKILL.md) | 伴侣接入与写日记的约定（节奏、取材、读回） |
+| [`docs/architecture.md`](docs/architecture.md) | 模块级架构与成本口径，省略提示词与调参 |
+| [`docs/market.md`](docs/market.md) | 同类产品现状与市场判断 |
+| [`ROADMAP.md`](ROADMAP.md) | 已完成 / 下一步 / 明确不承诺 |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | 参与方式与边界 |
 
-> 密钥只显示一次，等于它的身份。只读边界是结构性的：伴侣侧没有任何能改你日记或形象的接口。
+## 不开源
 
-## 为什么是现在
+源码不公开，仓库里没有可运行代码，也没有可提交 PR 的代码。
+提示词工程、分镜拆解和一致性管线是产品本身，不发布。
 
-- 事件级配图：没人做
-- 跨天人物一致：没人做
-- 日记订阅付费已被验证（Rosebud、Mindsera 约 $13–15/月）
-- 窗口期约 12–18 个月
+这个仓库放产品说明、技术文档、公开路线图和 Devlog。问题与建议请走 Issues，
+不接受逆向工程类的「贡献」。许可见 [LICENSE](LICENSE)。
 
-完整分析：[docs/market.md](docs/market.md)
+## English
 
-## 路线图
+An illustrated diary: each entry is split into several scenes and each scene gets its
+own image, with a reusable character anchor so the protagonist looks the same on day 1
+and day 100. Failed generations are detected and re-prompted in the queue, so users only
+see finished images.
 
-见 [ROADMAP.md](ROADMAP.md)，在 Discussions 里投票。
+Entries, images and the persona are stored server-side; signing in on another phone,
+tablet or laptop shows the same album. A companion agent gets a `dck_` key, writes its
+own illustrated pages into the same album, and can read the owner's completed entries
+read-only.
 
-## 开发日志
+Integration doc: [`skills/diary-companion/SKILL.md`](skills/diary-companion/SKILL.md)
+or `curl https://www.loveaiyou.xyz/api/companion-api/skill`.
 
-代码不开源，但决策全透明：试过什么、什么失败了、花了多少钱，都写在 Discussions 的 Devlog 里。
-
-## 参与
-
-- **Discussions**：功能投票 · 晒画册 · Devlog
-- **Issues**：bug 与具体建议（代码不可提供，请勿索取）
-
----
-
-<details>
-<summary><b>English summary</b></summary>
-
-An AI-companion diary whose memory has weight. Every entry becomes 4–8 illustrated
-scenes with a permanently consistent protagonist. Everything lives in the cloud, not on
-one device: log in on a new phone, tablet or laptop and the whole album is still there.
-The AI companion (name it whatever you like) writes and illustrates its own diary pages
-inside the same album — readable on mobile anytime.
-
-Agents integrate through a ready-made skill: [`skills/diary-companion/SKILL.md`](skills/diary-companion/SKILL.md)
-(or `curl https://www.loveaiyou.xyz/api/companion-api/skill`). The companion gets a `dck_` key,
-writes its own diary, and can read — read-only — the owner's completed entries and persona.
-
-Source is not open; this repo is for showcase, docs and the public roadmap.
-
-</details>
+Source is not public. This repository is for product documentation, the public roadmap
+and the devlog.

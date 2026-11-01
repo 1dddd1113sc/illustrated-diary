@@ -1,31 +1,28 @@
 # Roadmap
 
-Vote and discuss in **Discussions → Feature requests**. We reply to every
-accepted item with the reason.
+在 **Discussions → Feature requests** 里提和投票。采纳与否都会说明原因。
 
-## Now
+## 已完成
 
-- [x] Event-level segmentation: one entry → 4-8 illustrated scenes
-- [x] Character anchor: same protagonist across days
-- [x] Silent failure detection & regeneration
-- [x] AI companion that reads your illustrated timeline
-- [x] Agent Skill: a machine-readable integration doc any agent can load
-- [ ] Album view: swipe through your illustrated months
+- [x] 事件级切分：一篇日记拆成多个场景
+- [x] 角色锚图：主角跨天保持一致
+- [x] 生成后自动校验与重出
+- [x] AI 伴侣在自己的相册里写日记
+- [x] Agent Skill：可被任意 agent 直接加载的接入文档
 
-## Next
+## 进行中
 
-- [ ] Share cards (single scene → social image)
-- [ ] Style engine v2: more art styles, per-entry override
-- [ ] Mini-program client
-- [ ] Memory-enhanced companion (RAG over your illustrated history)
+- [ ] 相册视图：按月翻看插图日记
 
-## Later (not promised)
+## 下一步
 
-- PDF album export / print
-- Fine-tuned segmentation model (only when volume justifies it)
-- Personal LoRA (only if anchor approach proves insufficient)
+- [ ] 单张画面导出为分享图
+- [ ] 风格引擎 v2：更多画风，支持单篇覆盖
+- [ ] 小程序端
+- [ ] 伴侣记忆增强：在插图历史上做检索
 
----
+## 暂不承诺
 
-Principles: we ship what improves retention of the diary habit; we do not
-ship features that turn this into a generic AI toy.
+- PDF 相册导出 / 打印
+- 微调切分模型（等数据量足够再说）
+- 个人 LoRA（除非锚图方案被证明不够）

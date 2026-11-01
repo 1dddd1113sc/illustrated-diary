@@ -1,29 +1,22 @@
 # Contributing
 
-**The source code of this project is not open.** There is no code to send
-pull requests against, and that is a deliberate choice: our moat is the
-prompt engineering and consistency pipeline, which cannot be published.
+源码不公开。这个仓库里没有可运行代码，也没有可以提交 PR 的代码。
+不公开是刻意的：提示词工程、分镜拆解和一致性管线就是产品本身。
 
-But this repository is not a read-only billboard. You can contribute the
-ways that actually shape the product:
+这个仓库仍然可以用来参与：
 
 ## Discussions
 
-- **Feature requests** — propose and vote. Every accepted feature gets a
-  public reply with the reasoning.
-- **Show your diary** — share your illustrated pages. The best screenshots
-  become our demo material (with your permission).
-- **Devlog** — we post what we tried, what failed, and what it cost.
-  Comments and challenges welcome.
+- **功能建议** — 提出来、投票。被采纳的会公开回复采纳理由。
+- **晒你的日记** — 分享生成的页面。经你同意后，最好的会放进演示素材。
+- **Devlog** — 我们记录试过什么、什么行不通、花了多少。
 
 ## Issues
 
-Bug reports and concrete feature requests only. Please include screenshots
-and steps. Note we cannot share source or internal logs.
+只收 bug 报告和具体的功能建议，请附截图和复现步骤。内部日志和源码不提供。
 
-## What we will never do
+## 不接受
 
-- Pretend to be open source.
-- Publish prompt tables, shot-language vocabularies, or provider tuning.
-- Accept "contributions" that are reverse-engineering attempts. Yes, we can
-  tell.
+- 把仓库描述成开源项目。
+- 提交提示词表、分镜词汇表或渠道调参。
+- 以「贡献」名义做逆向工程。
